@@ -7,8 +7,8 @@ KEY_COL = "Informal"
 VALUE_COL = "Formal"
 
 
+# load mapping pairs from csv into a dictionary
 def load_dict_from_csv(file_path: str, key_column: str, value_column: str) -> Dict[str, str]:
-    """Load mapping pairs from a CSV file into a dictionary."""
     try:
         with open(file_path, "r", encoding="utf-8", newline="") as f:
             reader = csv.DictReader(f)
@@ -19,11 +19,12 @@ def load_dict_from_csv(file_path: str, key_column: str, value_column: str) -> Di
         print(f"Error: Missing expected column in CSV: {e}", file=sys.stderr)
     except Exception as e:
         print(f"An unexpected error occurred: {e}", file=sys.stderr)
+    
     return {}
 
 
+# replace informal phrases with formal equivalents based on the mapping
 def replace_with_dict(text: str, replacement_dict: Dict[str, str]) -> str:
-    """Replace informal phrases with formal equivalents based on the provided mapping."""
     for old_str, new_str in replacement_dict.items():
         text = text.replace(old_str, new_str)
     return text
